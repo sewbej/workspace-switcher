@@ -1093,7 +1093,7 @@ class Button3_width1_black extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1115,7 +1115,7 @@ class Button3_width1_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1156,7 +1156,7 @@ class Button3_width2_black extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1178,7 +1178,7 @@ class Button3_width2_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1219,7 +1219,7 @@ class Button3_width3_black extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1241,7 +1241,7 @@ class Button3_width3_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1282,7 +1282,7 @@ class Button3_width4_black extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1304,7 +1304,7 @@ class Button3_width4_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1345,7 +1345,7 @@ class Button3_width1_white extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1367,7 +1367,7 @@ class Button3_width1_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1408,7 +1408,7 @@ class Button3_width2_white extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1430,7 +1430,7 @@ class Button3_width2_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1471,7 +1471,7 @@ class Button3_width3_white extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1493,7 +1493,7 @@ class Button3_width3_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1534,7 +1534,7 @@ class Button3_width4_white extends WorkspaceButton {
 		{
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 90%;'
+				style: 'font-size: 80%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1556,7 +1556,7 @@ class Button3_width4_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 120%;'
+				style: 'font-size: 110%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
