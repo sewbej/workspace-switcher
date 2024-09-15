@@ -1,0 +1,95 @@
+{
+    "section1": {
+        "type": "section",
+        "description": "Appearance"
+    },
+    "display-type": {
+        "type": "combobox",
+        "default": "button2",
+        "description": "Button shape",
+        "tooltip": "",
+        "options": {
+            "⦁   ⦁   ⦁   ⦁": "button1",
+            "● ● ● ●": "button2",
+            "●  ⦁   ⦁   ⦁": "button3",
+            "●  🞆  🞆  🞆": "button4",
+            "⦿  🞆  🞆  🞆": "button5"
+        }
+    },
+    "display-color": {
+        "type": "combobox",
+        "default": "color2",
+        "description": "Color",
+        "options": {
+            "Black": "color1",
+            "White": "color2"
+        }
+    },
+    "display-size": {
+        "type": "scale",
+        "default": 3,
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "show-value": true,
+        "description": "Size"
+    },
+    "display-width": {
+        "type": "scale",
+        "default": 2,
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "show-value": true,
+        "description": "Width"
+    },
+    "display-shadow": {
+        "type": "scale",
+        "default": 2,
+        "min": -1,
+        "max": 3,
+        "step": 1,
+        "show-value": true,
+        "description": "Shadow"
+    },
+    "display-background": {
+        "type": "switch",
+        "default": false,
+        "description": "Semi-transparent background"
+    },
+    "background-color": {
+        "type": "combobox",
+        "default": "color1",
+        "options": {
+            "Black": "color1",
+            "White": "color2"
+        },
+        "description": "Background color",
+        "dependency": "display-background",
+        "indent": true
+    },
+    "section2": {
+        "type": "section",
+        "description": "Behavior"
+    },
+    "activate-on-hover": {
+        "type": "combobox",
+        "default": "normal",
+        "description": "Manage workspaces (Expo)",
+        "options": {
+            "Middle mouse button": "normal",
+            "When you hover the applet": "hover"
+        }
+    },
+    "scroll-behavior": {
+        "type": "combobox",
+        "default": "normal",
+        "description": "Scroll wheel behavior",
+        "tooltip": "Reverse or disable the direction of the scroll in the workspace list.",
+        "options": {
+            "Normal": "normal",
+            "Reversed": "reversed",
+            "Disabled": "disabled"
+        }
+    }
+}
