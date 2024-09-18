@@ -26,6 +26,12 @@
   padding: 0 6px;
   border: 0;
   border-radius: 10px; }
+.sewbej-bg2-size1-shadow-1:hover, .sewbej-bg2-size1-shadow0:hover, .sewbej-bg2-size1-shadow1:hover, .sewbej-bg2-size1-shadow2:hover, .sewbej-bg2-size1-shadow3:hover,
+.sewbej-bg2-size2-shadow-1:hover, .sewbej-bg2-size2-shadow0:hover, .sewbej-bg2-size2-shadow1:hover, .sewbej-bg2-size2-shadow2:hover, .sewbej-bg2-size2-shadow3:hover,
+.sewbej-bg2-size3-shadow-1:hover, .sewbej-bg2-size3-shadow0:hover, .sewbej-bg2-size3-shadow1:hover, .sewbej-bg2-size3-shadow2:hover, .sewbej-bg2-size3-shadow3:hover,
+.sewbej-bg2-size4-shadow-1:hover, .sewbej-bg2-size4-shadow0:hover, .sewbej-bg2-size4-shadow1:hover, .sewbej-bg2-size4-shadow2:hover, .sewbej-bg2-size4-shadow3:hover {
+  background-color: rgba(255, 255, 255, .45);
+  transition-duration: 100; }
  .vertical .sewbej-bg1-size1-shadow-1,  .vertical .sewbej-bg1-size1-shadow0,  .vertical .sewbej-bg1-size1-shadow1,  .vertical .sewbej-bg1-size1-shadow2,  .vertical .sewbej-bg1-size1-shadow3,
  .vertical .sewbej-bg1-size2-shadow-1,  .vertical .sewbej-bg1-size2-shadow0,  .vertical .sewbej-bg1-size2-shadow1,  .vertical .sewbej-bg1-size2-shadow2,  .vertical .sewbej-bg1-size2-shadow3,
  .vertical .sewbej-bg1-size3-shadow-1,  .vertical .sewbej-bg1-size3-shadow0,  .vertical .sewbej-bg1-size3-shadow1,  .vertical .sewbej-bg1-size3-shadow2,  .vertical .sewbej-bg1-size3-shadow3,
@@ -35,12 +41,7 @@
  .vertical .sewbej-bg2-size3-shadow-1,  .vertical .sewbej-bg2-size3-shadow0,  .vertical .sewbej-bg2-size3-shadow1,  .vertical .sewbej-bg2-size3-shadow2,  .vertical .sewbej-bg2-size3-shadow3,
  .vertical .sewbej-bg2-size4-shadow-1,  .vertical .sewbej-bg2-size4-shadow0,  .vertical .sewbej-bg2-size4-shadow1,  .vertical .sewbej-bg2-size4-shadow2,  .vertical .sewbej-bg2-size4-shadow3 {
   padding: 6px 0; }
-.sewbej-bg2-size1-shadow-1:hover, .sewbej-bg2-size1-shadow0:hover, .sewbej-bg2-size1-shadow1:hover, .sewbej-bg2-size1-shadow2:hover, .sewbej-bg2-size1-shadow3:hover,
-.sewbej-bg2-size2-shadow-1:hover, .sewbej-bg2-size2-shadow0:hover, .sewbej-bg2-size2-shadow1:hover, .sewbej-bg2-size2-shadow2:hover, .sewbej-bg2-size2-shadow3:hover,
-.sewbej-bg2-size3-shadow-1:hover, .sewbej-bg2-size3-shadow0:hover, .sewbej-bg2-size3-shadow1:hover, .sewbej-bg2-size3-shadow2:hover, .sewbej-bg2-size3-shadow3:hover,
-.sewbej-bg2-size4-shadow-1:hover, .sewbej-bg2-size4-shadow0:hover, .sewbej-bg2-size4-shadow1:hover, .sewbej-bg2-size4-shadow2:hover, .sewbej-bg2-size4-shadow3:hover {
-  background-color: rgba(255, 255, 255, .45);
-  transition-duration: 100; }
+
 .sewbej-size1-shadow-1, .sewbej-bg1-size1-shadow-1, .sewbej-bg2-size1-shadow-1 {font-size: 22px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
 .sewbej-size1-shadow0, .sewbej-bg1-size1-shadow0, .sewbej-bg2-size1-shadow0 {font-size: 22px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
 .sewbej-size1-shadow1, .sewbej-bg1-size1-shadow1, .sewbej-bg2-size1-shadow1 {font-size: 22px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
@@ -116,12 +117,23 @@
 .sewbej-button5-width1-white, .sewbej-button5-width2-white, .sewbej-button5-width3-white, .sewbej-button5-width4-white {
   font-family: FreeSerif, serif;
   font-weight: normal;
-  padding-top: 2px;
+  padding-top: 1px;
   padding-bottom: 0;
   background-color: transparent;
   border: 0;
   margin: 0;
   transition-duration: 300; }
+.panel-bottom .sewbej-button1-width1-black, .panel-bottom .sewbej-button1-width2-black, .panel-bottom .sewbej-button1-width3-black, .panel-bottom .sewbej-button1-width4-black,
+.panel-bottom .sewbej-button1-width1-white, .panel-bottom .sewbej-button1-width2-white, .panel-bottom .sewbej-button1-width3-white, .panel-bottom .sewbej-button1-width4-white,
+.panel-bottom .sewbej-button2-width1-black, .panel-bottom .sewbej-button2-width2-black, .panel-bottom .sewbej-button2-width3-black, .panel-bottom .sewbej-button2-width4-black,
+.panel-bottom .sewbej-button2-width1-white, .panel-bottom .sewbej-button2-width2-white, .panel-bottom .sewbej-button2-width3-white, .panel-bottom .sewbej-button2-width4-white,
+.panel-bottom .sewbej-button3-width1-black, .panel-bottom .sewbej-button3-width2-black, .panel-bottom .sewbej-button3-width3-black, .panel-bottom .sewbej-button3-width4-black,
+.panel-bottom .sewbej-button3-width1-white, .panel-bottom .sewbej-button3-width2-white, .panel-bottom .sewbej-button3-width3-white, .panel-bottom .sewbej-button3-width4-white,
+.panel-bottom .sewbej-button4-width1-black, .panel-bottom .sewbej-button4-width2-black, .panel-bottom .sewbej-button4-width3-black, .panel-bottom .sewbej-button4-width4-black,
+.panel-bottom .sewbej-button4-width1-white, .panel-bottom .sewbej-button4-width2-white, .panel-bottom .sewbej-button4-width3-white, .panel-bottom .sewbej-button4-width4-white,
+.panel-bottom .sewbej-button5-width1-black, .panel-bottom .sewbej-button5-width2-black, .panel-bottom .sewbej-button5-width3-black, .panel-bottom .sewbej-button5-width4-black,
+.panel-bottom .sewbej-button5-width1-white, .panel-bottom .sewbej-button5-width2-white, .panel-bottom .sewbej-button5-width3-white, .panel-bottom .sewbej-button5-width4-white {
+  padding-top: 3px; }
 .vertical .sewbej-button1-width1-black, .vertical .sewbej-button1-width2-black, .vertical .sewbej-button1-width3-black, .vertical .sewbej-button1-width4-black,
 .vertical .sewbej-button1-width1-white, .vertical .sewbej-button1-width2-white, .vertical .sewbej-button1-width3-white,
  .vertical .sewbej-button1-width4-white,
