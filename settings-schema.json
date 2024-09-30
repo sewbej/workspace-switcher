@@ -32,7 +32,7 @@
         "max": 4,
         "step": 1,
         "show-value": true,
-        "description": "Size"
+        "description": "small                                                                            Size                                                                                     big"
     },
     "display-width": {
         "type": "scale",
@@ -41,7 +41,7 @@
         "max": 4,
         "step": 1,
         "show-value": true,
-        "description": "Width"
+        "description": "narrow                                                                      Expand                                                                             wide"
     },
     "display-shadow": {
         "type": "scale",
@@ -77,8 +77,8 @@
         "default": "normal",
         "description": "Manage workspaces (Expo)",
         "options": {
-            "Middle mouse button": "normal",
-            "When you hover the applet": "hover"
+            "by middle mouse button": "normal",
+            "when you hover over the applet": "hover"
         }
     },
     "scroll-behavior": {
