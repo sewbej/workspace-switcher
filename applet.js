@@ -66,9 +66,9 @@ class Button1_width1_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -129,9 +129,9 @@ class Button1_width2_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -192,9 +192,9 @@ class Button1_width3_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -255,9 +255,9 @@ class Button1_width4_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -318,9 +318,9 @@ class Button1_width1_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -381,9 +381,9 @@ class Button1_width2_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -444,9 +444,9 @@ class Button1_width3_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -507,9 +507,9 @@ class Button1_width4_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -571,9 +571,9 @@ class Button2_width1_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -634,9 +634,9 @@ class Button2_width2_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -697,9 +697,9 @@ class Button2_width3_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -760,9 +760,9 @@ class Button2_width4_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -823,9 +823,9 @@ class Button2_width1_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -886,9 +886,9 @@ class Button2_width2_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -949,9 +949,9 @@ class Button2_width3_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1012,9 +1012,9 @@ class Button2_width4_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1076,9 +1076,9 @@ class Button3_width1_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1115,7 +1115,7 @@ class Button3_width1_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1139,9 +1139,9 @@ class Button3_width2_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1178,7 +1178,7 @@ class Button3_width2_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1202,9 +1202,9 @@ class Button3_width3_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1241,7 +1241,7 @@ class Button3_width3_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1265,9 +1265,9 @@ class Button3_width4_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1304,7 +1304,7 @@ class Button3_width4_black extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1328,9 +1328,9 @@ class Button3_width1_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1367,7 +1367,7 @@ class Button3_width1_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1391,9 +1391,9 @@ class Button3_width2_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1430,7 +1430,7 @@ class Button3_width2_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1454,9 +1454,9 @@ class Button3_width3_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1493,7 +1493,7 @@ class Button3_width3_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1517,9 +1517,9 @@ class Button3_width4_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1556,7 +1556,7 @@ class Button3_width4_white extends WorkspaceButton {
 			this.actor.add_style_pseudo_class('selected');
 			let dot = new St.Label({
 				text: '●',
-				style: 'font-size: 110%;'
+				style: 'font-size: 100%;'
 			});
 			this.actor.set_child(dot);
 			this.update();
@@ -1581,9 +1581,9 @@ class Button4_width1_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1644,9 +1644,9 @@ class Button4_width2_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1707,9 +1707,9 @@ class Button4_width3_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1770,9 +1770,9 @@ class Button4_width4_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1833,9 +1833,9 @@ class Button4_width1_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1896,9 +1896,9 @@ class Button4_width2_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -1959,9 +1959,9 @@ class Button4_width3_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2022,9 +2022,9 @@ class Button4_width4_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2086,9 +2086,9 @@ class Button5_width1_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2149,9 +2149,9 @@ class Button5_width2_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2212,9 +2212,9 @@ class Button5_width3_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2275,9 +2275,9 @@ class Button5_width4_black extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2338,9 +2338,9 @@ class Button5_width1_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2401,9 +2401,9 @@ class Button5_width2_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2464,9 +2464,9 @@ class Button5_width3_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2527,9 +2527,9 @@ class Button5_width4_white extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
@@ -2590,9 +2590,9 @@ class Button99 extends WorkspaceButton {
 			reactive: applet._draggable.inhibit
 		});
 		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height(applet._panelHeight);
+			this.actor.set_height("10");
 		} else {
-			this.actor.set_width(applet._panelHeight);
+			this.actor.set_width("10");
 			this.actor.add_style_class_name('vertical');
 		}
 		let dot = new St.Label({
