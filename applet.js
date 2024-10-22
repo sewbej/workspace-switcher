@@ -34,6 +34,7 @@ class WorkspaceButton {
 			this.activate(true);
 		}
 	}
+
 	updateName() {
 		this.workspace_name = Main.getWorkspaceName(this.index);
 		this._tooltip.set_text(this.workspace_name);
@@ -2630,11 +2631,13 @@ class CinnamonWorkspaceSwitcher extends Applet.Applet {
 		this.settings.bind("display-shadow", "display_shadow", this.queueCreateButtons);
 		this.settings.bind("display-background", "display_bg", this.queueCreateButtons);
 		this.settings.bind("background-color", "bg_color", this.queueCreateButtons);
+        this.settings.bind("padding-top", "padding_top", this.on_settings_changed);
 		this.settings.bind("activate-on-hover", "_hover_activates");
 		this.settings.bind("scroll-behavior", "scroll_behavior");
 		this.actor.connect('scroll-event', this.hook.bind(this));
 		this.actor.connect('enter-event', Lang.bind(this, this._onEntered));
 		this.signals.connect(Main.layoutManager, 'monitors-changed', this.onWorkspacesUpdated, this);
+        this.on_settings_changed();
 		this.queueCreateButtons();
 		global.workspace_manager.connect('notify::n-workspaces', () => {
 			this.onWorkspacesUpdated()
@@ -2661,6 +2664,9 @@ class CinnamonWorkspaceSwitcher extends Applet.Applet {
 		this._applet_context_menu.addMenuItem(this.removeWorkspaceMenuItem);
 		this.removeWorkspaceMenuItem.setSensitive(global.workspace_manager.n_workspaces > 1);
 	}
+    on_settings_changed() {
+        this.actor.style = "padding-top:" + this.padding_top + "px";
+    }
 	_onEntered(event) {
 		if (global.settings.get_boolean("panel-edit-mode")) return;
 		if (this._hover_activates == "hover")

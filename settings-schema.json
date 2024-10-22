@@ -68,6 +68,18 @@
         "dependency": "display-background",
         "indent": true
     },
+
+    "padding-top": {
+        "type": "scale",
+        "default": 2,
+        "min": 0,
+        "max": 9,
+        "step": 1,
+        "show-value": true,
+        "description": "top                                                                      Vertical align                                                                   bottom"
+    },
+
+
     "section2": {
         "type": "section",
         "description": "Behavior"
