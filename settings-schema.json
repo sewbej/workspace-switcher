@@ -29,7 +29,7 @@
         "type": "scale",
         "default": 3,
         "min": 1,
-        "max": 4,
+        "max": 6,
         "step": 1,
         "show-value": true,
         "description": "small                                                                            Size                                                                                     big"
@@ -52,6 +52,15 @@
         "show-value": true,
         "description": "Shadow"
     },
+    "padding-top": {
+        "type": "scale",
+        "default": 2,
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "show-value": true,
+        "description": "top                                                                      Vertical align                                                                   bottom"
+    },
     "display-background": {
         "type": "switch",
         "default": false,
@@ -68,17 +77,6 @@
         "dependency": "display-background",
         "indent": true
     },
-
-    "padding-top": {
-        "type": "scale",
-        "default": 2,
-        "min": 0,
-        "max": 9,
-        "step": 1,
-        "show-value": true,
-        "description": "top                                                                      Vertical align                                                                   bottom"
-    },
-
 
     "section2": {
         "type": "section",

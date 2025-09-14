@@ -12,6 +12,11 @@ const Settings = imports.ui.settings;
 const ModalDialog = imports.ui.modalDialog;
 const Pango = imports.gi.Pango;
 const MIN_SWITCH_INTERVAL_MS = 220;
+const WORKSPACE_BUTTON_ANIM = {
+    hoverIn:    { duration: 200 },
+    hoverOut:   { duration: 300 }
+};
+
 class WorkspaceButton {
 	constructor(index, applet) {
 		this.index = index;
@@ -64,62 +69,90 @@ class Button1_width1_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width1-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width2_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -127,62 +160,90 @@ class Button1_width2_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width2-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width3_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -190,62 +251,90 @@ class Button1_width3_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width3-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width4_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -253,62 +342,90 @@ class Button1_width4_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width4-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width1_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -316,62 +433,90 @@ class Button1_width1_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width1-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width2_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -379,62 +524,90 @@ class Button1_width2_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width2-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width3_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -442,62 +615,90 @@ class Button1_width3_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width3-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button1_width4_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -505,62 +706,90 @@ class Button1_width4_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button1-width4-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 65%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 65%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 65%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:65%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 /*      ● ● ● ●      */
 class Button2_width1_black extends WorkspaceButton {
@@ -569,62 +798,90 @@ class Button2_width1_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width1-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width2_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -632,62 +889,90 @@ class Button2_width2_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width2-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width3_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -695,62 +980,90 @@ class Button2_width3_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width3-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width4_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -758,62 +1071,90 @@ class Button2_width4_black extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width4-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(80,80,80,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(50,50,50,1);'
+    });
+
+    this.dotHover.opacity = 0;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 0,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(15,15,15,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width1_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -821,62 +1162,90 @@ class Button2_width1_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width1-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width2_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -884,62 +1253,90 @@ class Button2_width2_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width2-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width3_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -947,62 +1344,90 @@ class Button2_width3_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width3-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 class Button2_width4_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -1010,62 +1435,90 @@ class Button2_width4_white extends WorkspaceButton {
 		this.actor = new St.Button({
 			name: 'workspaceButton',
 			style_class: 'sewbej-button2-width4-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '●',
-			style: 'font-size: 120%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 120%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+			reactive: true
+    });
+
+    if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+      this.actor.set_height(10);
+    } else {
+      this.actor.set_width(10);
+      this.actor.add_style_class_name('vertical');
+    }
+
+    this.dotNormal = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(93,93,93,1);'
+    });
+
+    this.dotHover = new St.Label({
+      text: '●',
+      style: 'font-size: 120%; color: rgba(205,205,205,1);'
+    });
+
+    this.dotHover.opacity = 100;
+
+    let container = new St.Widget({
+      layout_manager: new Clutter.BinLayout()
+    });
+    container.add_child(this.dotNormal);
+    container.add_child(this.dotHover);
+
+    this.actor.set_child(container);
+    this.update();
+
+    this.actor.connect('enter-event', () => this.mouseover());
+    this.actor.connect('leave-event', () => this.mouseleave());
+  }
+
+  _fadeTo(hover) {
+    if (hover) {
+      this.dotHover.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+        mode: Clutter.AnimationMode.EASE_OUT_QUAD
+      });
+    } else {
+      this.dotHover.ease({
+        opacity: 100,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+      this.dotNormal.ease({
+        opacity: 255,
+        duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+        mode: Clutter.AnimationMode.EASE_IN_QUAD
+      });
+    }
+  }
+
+  mouseover() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(true);
+  }
+
+  mouseleave() {
+    if (this.index === global.workspace_manager.get_active_workspace_index())
+      return;
+    this._fadeTo(false);
+  }
+
+  activate(active) {
+    if (active) {
+      this.actor.add_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(true);
+    } else {
+      this.actor.remove_style_pseudo_class('selected');
+      this.dotHover.set_style('font-size:120%; color: rgba(255,255,255,1);');
+      this._fadeTo(false);
+    }
+  }
 }
 /*      ●  •  •  •      */
 class Button3_width1_black extends WorkspaceButton {
@@ -1573,509 +2026,666 @@ class Button3_width4_white extends WorkspaceButton {
 	}
 }
 /*      ●  🞆  🞆  🞆      */
+
+
 class Button4_width1_black extends WorkspaceButton {
-	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width1-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+    constructor(index, applet) {
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width1-black',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
+
 class Button4_width2_black extends WorkspaceButton {
-	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width2-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+    constructor(index, applet) {
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width2-black',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width3_black extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width3-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width3-black',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width4_black extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width4-black',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width4-black',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width1_white extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width1-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width1-white',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width2_white extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width2-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width2-white',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width3_white extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width3-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width3-white',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button4_width4_white extends WorkspaceButton {
 	constructor(index, applet) {
-		super(index, applet);
-		this.actor = new St.Button({
-			name: 'workspaceButton',
-			style_class: 'sewbej-button4-width4-white',
-			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 80%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '●',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 80%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        super(index, applet);
+
+        this.actor = new St.Button({
+            name: 'workspaceButton',
+            style_class: 'sewbej-button4-width4-white',
+            reactive: applet._draggable.inhibit
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '🞊',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('🞊');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('●');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 /*      ⦿ ○ ○ ○      */
 class Button5_width1_black extends WorkspaceButton {
@@ -2085,61 +2695,79 @@ class Button5_width1_black extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width1-black',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width2_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2148,61 +2776,79 @@ class Button5_width2_black extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width2-black',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width3_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2211,61 +2857,79 @@ class Button5_width3_black extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width3-black',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width4_black extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2274,61 +2938,79 @@ class Button5_width4_black extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width4-black',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width1_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2337,61 +3019,79 @@ class Button5_width1_white extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width1-white',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width2_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2400,61 +3100,79 @@ class Button5_width2_white extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width2-white',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width3_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2463,61 +3181,79 @@ class Button5_width3_white extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width3-white',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button5_width4_white extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2526,61 +3262,79 @@ class Button5_width4_white extends WorkspaceButton {
 			name: 'workspaceButton',
 			style_class: 'sewbej-button5-width4-white',
 			reactive: applet._draggable.inhibit
-		});
-		if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
-			this.actor.set_height("10");
-		} else {
-			this.actor.set_width("10");
-			this.actor.add_style_class_name('vertical');
-		}
-		let dot = new St.Label({
-			text: '○',
-			style: 'font-size: 110%;'
-		});
-		this.actor.set_child(dot);
-		this.update();
-	}
-	mouseover() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '☉',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	mouseleave() {
-		if (this.index === global.workspace_manager.get_active_workspace_index()) return;
-		{
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
-	activate(active) {
-		if (active) {
-			this.actor.add_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '🞊',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		} else {
-			this.actor.remove_style_pseudo_class('selected');
-			let dot = new St.Label({
-				text: '○',
-				style: 'font-size: 110%;'
-			});
-			this.actor.set_child(dot);
-			this.update();
-		}
-	}
+        });
+
+        if (applet.orientation == St.Side.TOP || applet.orientation == St.Side.BOTTOM) {
+            this.actor.set_height(10);
+        } else {
+            this.actor.set_width(10);
+            this.actor.add_style_class_name('vertical');
+        }
+
+        this.container = new St.Widget({
+            layout_manager: new Clutter.BinLayout()
+        });
+
+        this.dotBase = new St.Label({
+            text: '○',
+            style: 'font-size: 100%;'
+        });
+
+        this.dotOverlay = new St.Label({
+            text: '☉',
+            style: 'font-size: 100%;',
+            opacity: 0
+        });
+
+        this.container.add_child(this.dotBase);
+        this.container.add_child(this.dotOverlay);
+
+        this.actor.set_child(this.container);
+        this.update();
+    }
+
+    mouseover() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.set_text('☉');
+        this.dotOverlay.ease({
+            opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
+    }
+
+    mouseleave() {
+        if (this.index === global.workspace_manager.get_active_workspace_index()) return;
+
+        this.dotOverlay.ease({
+            opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+        });
+    }
+
+    activate(active) {
+        if (active) {
+            this.actor.add_style_pseudo_class('selected');
+            this.dotOverlay.set_text('🞊');
+            this.dotOverlay.ease({
+                opacity: 255,
+            duration: WORKSPACE_BUTTON_ANIM.hoverIn.duration,
+            mode: Clutter.AnimationMode.EASE_IN_QUAD
+            });
+        } else {
+            this.actor.remove_style_pseudo_class('selected');
+            this.dotOverlay.ease({
+                opacity: 0,
+            duration: WORKSPACE_BUTTON_ANIM.hoverOut.duration,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => {
+                    this.dotOverlay.set_text('🞊');
+                }
+            });
+        }
+    }
 }
 class Button99 extends WorkspaceButton {
 	constructor(index, applet) {
@@ -2795,8 +3549,35 @@ class CinnamonWorkspaceSwitcher extends Applet.Applet {
 		if (this.display_size == "4" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "2")
         this.actor.set_style_class_name('sewbej-bg1-size4-shadow2');
 		else
-		if (this.display_size == "4" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "3")
-        this.actor.set_style_class_name('sewbej-bg1-size4-shadow3');
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-bg1-size5-shadow-1');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-bg1-size5-shadow0');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-bg1-size5-shadow1');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-bg1-size5-shadow2');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-bg1-size5-shadow3');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-bg1-size6-shadow-1');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-bg1-size6-shadow0');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-bg1-size6-shadow1');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-bg1-size6-shadow2');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color1" && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-bg1-size6-shadow3');
 		else
 		if (this.display_size == "1" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "-1")
         this.actor.set_style_class_name('sewbej-bg2-size1-shadow-1');
@@ -2858,6 +3639,36 @@ class CinnamonWorkspaceSwitcher extends Applet.Applet {
 		if (this.display_size == "4" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "3")
         this.actor.set_style_class_name('sewbej-bg2-size4-shadow3');
 		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-bg2-size5-shadow-1');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-bg2-size5-shadow0');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-bg2-size5-shadow1');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-bg2-size5-shadow2');
+		else
+		if (this.display_size == "5" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-bg2-size5-shadow3');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-bg2-size6-shadow-1');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-bg2-size6-shadow0');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-bg2-size6-shadow1');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-bg2-size6-shadow2');
+		else
+		if (this.display_size == "6" && this.display_bg == true && this.bg_color == "color2" && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-bg2-size6-shadow3');
+		else
 		if (this.display_size == "1" && this.display_bg == false && this.display_shadow == "-1")
         this.actor.set_style_class_name('sewbej-size1-shadow-1');
 		else
@@ -2917,6 +3728,36 @@ class CinnamonWorkspaceSwitcher extends Applet.Applet {
 		else
 		if (this.display_size == "4" && this.display_bg == false && this.display_shadow == "3")
         this.actor.set_style_class_name('sewbej-size4-shadow3');
+		else
+		if (this.display_size == "5" && this.display_bg == false && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-size5-shadow-1');
+		else
+		if (this.display_size == "5" && this.display_bg == false && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-size5-shadow0');
+		else
+		if (this.display_size == "5" && this.display_bg == false && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-size5-shadow1');
+		else
+		if (this.display_size == "5" && this.display_bg == false && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-size5-shadow2');
+		else
+		if (this.display_size == "5" && this.display_bg == false && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-size5-shadow3');
+		else
+		if (this.display_size == "6" && this.display_bg == false && this.display_shadow == "-1")
+        this.actor.set_style_class_name('sewbej-size6-shadow-1');
+		else
+		if (this.display_size == "6" && this.display_bg == false && this.display_shadow == "0")
+        this.actor.set_style_class_name('sewbej-size6-shadow0');
+		else
+		if (this.display_size == "6" && this.display_bg == false && this.display_shadow == "1")
+        this.actor.set_style_class_name('sewbej-size6-shadow1');
+		else
+		if (this.display_size == "6" && this.display_bg == false && this.display_shadow == "2")
+        this.actor.set_style_class_name('sewbej-size6-shadow2');
+		else
+		if (this.display_size == "6" && this.display_bg == false && this.display_shadow == "3")
+        this.actor.set_style_class_name('sewbej-size6-shadow3');
 		else this.actor.set_important(true);
 		this.buttons = [];
 		for (let i = 0; i < global.workspace_manager.n_workspaces; ++i) {

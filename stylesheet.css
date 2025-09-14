@@ -1,7 +1,9 @@
 .sewbej-bg1-size1-shadow-1, .sewbej-bg1-size1-shadow0, .sewbej-bg1-size1-shadow1, .sewbej-bg1-size1-shadow2, .sewbej-bg1-size1-shadow3,
 .sewbej-bg1-size2-shadow-1, .sewbej-bg1-size2-shadow0, .sewbej-bg1-size2-shadow1, .sewbej-bg1-size2-shadow2, .sewbej-bg1-size2-shadow3,
 .sewbej-bg1-size3-shadow-1, .sewbej-bg1-size3-shadow0, .sewbej-bg1-size3-shadow1, .sewbej-bg1-size3-shadow2, .sewbej-bg1-size3-shadow3,
-.sewbej-bg1-size4-shadow-1, .sewbej-bg1-size4-shadow0, .sewbej-bg1-size4-shadow1, .sewbej-bg1-size4-shadow2, .sewbej-bg1-size4-shadow3 {
+.sewbej-bg1-size4-shadow-1, .sewbej-bg1-size4-shadow0, .sewbej-bg1-size4-shadow1, .sewbej-bg1-size4-shadow2, .sewbej-bg1-size4-shadow3,
+.sewbej-bg1-size5-shadow-1, .sewbej-bg1-size5-shadow0, .sewbej-bg1-size5-shadow1, .sewbej-bg1-size5-shadow2, .sewbej-bg1-size5-shadow3,
+.sewbej-bg1-size6-shadow-1, .sewbej-bg1-size6-shadow0, .sewbej-bg1-size6-shadow1, .sewbej-bg1-size6-shadow2, .sewbej-bg1-size6-shadow3 {
   background-color: rgba(0, 0, 0, .3);
   min-width: 0;
   min-height: 0;
@@ -12,13 +14,17 @@
 .sewbej-bg1-size1-shadow-1:hover, .sewbej-bg1-size1-shadow0:hover, .sewbej-bg1-size1-shadow1:hover, .sewbej-bg1-size1-shadow2:hover, .sewbej-bg1-size1-shadow3:hover,
 .sewbej-bg1-size2-shadow-1:hover, .sewbej-bg1-size2-shadow0:hover, .sewbej-bg1-size2-shadow1:hover, .sewbej-bg1-size2-shadow2:hover, .sewbej-bg1-size2-shadow3:hover,
 .sewbej-bg1-size3-shadow-1:hover, .sewbej-bg1-size3-shadow0:hover, .sewbej-bg1-size3-shadow1:hover, .sewbej-bg1-size3-shadow2:hover, .sewbej-bg1-size3-shadow3:hover,
-.sewbej-bg1-size4-shadow-1:hover, .sewbej-bg1-size4-shadow0:hover, .sewbej-bg1-size4-shadow1:hover, .sewbej-bg1-size4-shadow2:hover, .sewbej-bg1-size4-shadow3:hover {
+.sewbej-bg1-size4-shadow-1:hover, .sewbej-bg1-size4-shadow0:hover, .sewbej-bg1-size4-shadow1:hover, .sewbej-bg1-size4-shadow2:hover, .sewbej-bg1-size4-shadow3:hover,
+.sewbej-bg1-size5-shadow-1:hover, .sewbej-bg1-size5-shadow0:hover, .sewbej-bg1-size5-shadow1:hover, .sewbej-bg1-size5-shadow2:hover, .sewbej-bg1-size5-shadow3:hover,
+.sewbej-bg1-size6-shadow-1:hover, .sewbej-bg1-size6-shadow0:hover, .sewbej-bg1-size6-shadow1:hover, .sewbej-bg1-size6-shadow2:hover, .sewbej-bg1-size6-shadow3:hover {
   background-color: rgba(0, 0, 0, .45);
   transition-duration: 100; }
 .sewbej-bg2-size1-shadow-1, .sewbej-bg2-size1-shadow0, .sewbej-bg2-size1-shadow1, .sewbej-bg2-size1-shadow2, .sewbej-bg2-size1-shadow3,
 .sewbej-bg2-size2-shadow-1, .sewbej-bg2-size2-shadow0, .sewbej-bg2-size2-shadow1, .sewbej-bg2-size2-shadow2, .sewbej-bg2-size2-shadow3,
 .sewbej-bg2-size3-shadow-1, .sewbej-bg2-size3-shadow0, .sewbej-bg2-size3-shadow1, .sewbej-bg2-size3-shadow2, .sewbej-bg2-size3-shadow3,
-.sewbej-bg2-size4-shadow-1, .sewbej-bg2-size4-shadow0, .sewbej-bg2-size4-shadow1, .sewbej-bg2-size4-shadow2, .sewbej-bg2-size4-shadow3 {
+.sewbej-bg2-size4-shadow-1, .sewbej-bg2-size4-shadow0, .sewbej-bg2-size4-shadow1, .sewbej-bg2-size4-shadow2, .sewbej-bg2-size4-shadow3,
+.sewbej-bg2-size5-shadow-1, .sewbej-bg2-size5-shadow0, .sewbej-bg2-size5-shadow1, .sewbej-bg2-size5-shadow2, .sewbej-bg2-size5-shadow3,
+.sewbej-bg2-size6-shadow-1, .sewbej-bg2-size6-shadow0, .sewbej-bg2-size6-shadow1, .sewbej-bg2-size6-shadow2, .sewbej-bg2-size6-shadow3 {
   background-color: rgba(255, 255, 255, .3);
   min-width: 0;
   min-height: 0;
@@ -29,7 +35,9 @@
 .sewbej-bg2-size1-shadow-1:hover, .sewbej-bg2-size1-shadow0:hover, .sewbej-bg2-size1-shadow1:hover, .sewbej-bg2-size1-shadow2:hover, .sewbej-bg2-size1-shadow3:hover,
 .sewbej-bg2-size2-shadow-1:hover, .sewbej-bg2-size2-shadow0:hover, .sewbej-bg2-size2-shadow1:hover, .sewbej-bg2-size2-shadow2:hover, .sewbej-bg2-size2-shadow3:hover,
 .sewbej-bg2-size3-shadow-1:hover, .sewbej-bg2-size3-shadow0:hover, .sewbej-bg2-size3-shadow1:hover, .sewbej-bg2-size3-shadow2:hover, .sewbej-bg2-size3-shadow3:hover,
-.sewbej-bg2-size4-shadow-1:hover, .sewbej-bg2-size4-shadow0:hover, .sewbej-bg2-size4-shadow1:hover, .sewbej-bg2-size4-shadow2:hover, .sewbej-bg2-size4-shadow3:hover {
+.sewbej-bg2-size4-shadow-1:hover, .sewbej-bg2-size4-shadow0:hover, .sewbej-bg2-size4-shadow1:hover, .sewbej-bg2-size4-shadow2:hover, .sewbej-bg2-size4-shadow3:hover,
+.sewbej-bg2-size5-shadow-1:hover, .sewbej-bg2-size5-shadow0:hover, .sewbej-bg2-size5-shadow1:hover, .sewbej-bg2-size5-shadow2:hover, .sewbej-bg2-size5-shadow3:hover,
+.sewbej-bg2-size6-shadow-1:hover, .sewbej-bg2-size6-shadow0:hover, .sewbej-bg2-size6-shadow1:hover, .sewbej-bg2-size6-shadow2:hover, .sewbej-bg2-size6-shadow3:hover {
   background-color: rgba(255, 255, 255, .45);
   transition-duration: 100; }
  .vertical .sewbej-bg1-size1-shadow-1,  .vertical .sewbej-bg1-size1-shadow0,  .vertical .sewbej-bg1-size1-shadow1,  .vertical .sewbej-bg1-size1-shadow2,  .vertical .sewbej-bg1-size1-shadow3,
@@ -47,21 +55,31 @@
 .sewbej-size1-shadow1, .sewbej-bg1-size1-shadow1, .sewbej-bg2-size1-shadow1 {font-size: 22px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
 .sewbej-size1-shadow2, .sewbej-bg1-size1-shadow2, .sewbej-bg2-size1-shadow2 {font-size: 22px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
 .sewbej-size1-shadow3, .sewbej-bg1-size1-shadow3, .sewbej-bg2-size1-shadow3 {font-size: 22px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
-.sewbej-size2-shadow-1, .sewbej-bg1-size2-shadow-1, .sewbej-bg2-size2-shadow-1 {font-size: 26px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
-.sewbej-size2-shadow0, .sewbej-bg1-size2-shadow0, .sewbej-bg2-size2-shadow0 {font-size: 26px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
-.sewbej-size2-shadow1, .sewbej-bg1-size2-shadow1, .sewbej-bg2-size2-shadow1 {font-size: 26px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
-.sewbej-size2-shadow2, .sewbej-bg1-size2-shadow2, .sewbej-bg2-size2-shadow2 {font-size: 26px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
-.sewbej-size2-shadow3, .sewbej-bg1-size2-shadow3, .sewbej-bg2-size2-shadow3 {font-size: 26px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
-.sewbej-size3-shadow-1, .sewbej-bg1-size3-shadow-1, .sewbej-bg2-size3-shadow-1 {font-size: 30px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
-.sewbej-size3-shadow0, .sewbej-bg1-size3-shadow0, .sewbej-bg2-size3-shadow0 {font-size: 30px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
-.sewbej-size3-shadow1, .sewbej-bg1-size3-shadow1, .sewbej-bg2-size3-shadow1 {font-size: 30px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px ;}
-.sewbej-size3-shadow2, .sewbej-bg1-size3-shadow2, .sewbej-bg2-size3-shadow2 {font-size: 30px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
-.sewbej-size3-shadow3, .sewbej-bg1-size3-shadow3, .sewbej-bg2-size3-shadow3 {font-size: 30px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
-.sewbej-size4-shadow-1, .sewbej-bg1-size4-shadow-1, .sewbej-bg2-size4-shadow-1 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
-.sewbej-size4-shadow0, .sewbej-bg1-size4-shadow0, .sewbej-bg2-size4-shadow0  {font-size: 34px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
-.sewbej-size4-shadow1, .sewbej-bg1-size4-shadow1, .sewbej-bg2-size4-shadow1 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
-.sewbej-size4-shadow2, .sewbej-bg1-size4-shadow2, .sewbej-bg2-size4-shadow2 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
-.sewbej-size4-shadow3, .sewbej-bg1-size4-shadow3, .sewbej-bg2-size4-shadow3 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
+.sewbej-size2-shadow-1, .sewbej-bg1-size2-shadow-1, .sewbej-bg2-size2-shadow-1 {font-size: 25px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
+.sewbej-size2-shadow0, .sewbej-bg1-size2-shadow0, .sewbej-bg2-size2-shadow0 {font-size: 25px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
+.sewbej-size2-shadow1, .sewbej-bg1-size2-shadow1, .sewbej-bg2-size2-shadow1 {font-size: 25px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
+.sewbej-size2-shadow2, .sewbej-bg1-size2-shadow2, .sewbej-bg2-size2-shadow2 {font-size: 25px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
+.sewbej-size2-shadow3, .sewbej-bg1-size2-shadow3, .sewbej-bg2-size2-shadow3 {font-size: 25px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
+.sewbej-size3-shadow-1, .sewbej-bg1-size3-shadow-1, .sewbej-bg2-size3-shadow-1 {font-size: 28px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
+.sewbej-size3-shadow0, .sewbej-bg1-size3-shadow0, .sewbej-bg2-size3-shadow0 {font-size: 28px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
+.sewbej-size3-shadow1, .sewbej-bg1-size3-shadow1, .sewbej-bg2-size3-shadow1 {font-size: 28px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px ;}
+.sewbej-size3-shadow2, .sewbej-bg1-size3-shadow2, .sewbej-bg2-size3-shadow2 {font-size: 28px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
+.sewbej-size3-shadow3, .sewbej-bg1-size3-shadow3, .sewbej-bg2-size3-shadow3 {font-size: 28px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
+.sewbej-size4-shadow-1, .sewbej-bg1-size4-shadow-1, .sewbej-bg2-size4-shadow-1 {font-size: 31px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
+.sewbej-size4-shadow0, .sewbej-bg1-size4-shadow0, .sewbej-bg2-size4-shadow0  {font-size: 31px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
+.sewbej-size4-shadow1, .sewbej-bg1-size4-shadow1, .sewbej-bg2-size4-shadow1 {font-size: 31px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
+.sewbej-size4-shadow2, .sewbej-bg1-size4-shadow2, .sewbej-bg2-size4-shadow2 {font-size: 31px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
+.sewbej-size4-shadow3, .sewbej-bg1-size4-shadow3, .sewbej-bg2-size4-shadow3 {font-size: 31px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
+.sewbej-size5-shadow-1, .sewbej-bg1-size5-shadow-1, .sewbej-bg2-size5-shadow-1 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
+.sewbej-size5-shadow0, .sewbej-bg1-size5-shadow0, .sewbej-bg2-size5-shadow0  {font-size: 34px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
+.sewbej-size5-shadow1, .sewbej-bg1-size5-shadow1, .sewbej-bg2-size5-shadow1 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
+.sewbej-size5-shadow2, .sewbej-bg1-size5-shadow2, .sewbej-bg2-size5-shadow2 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
+.sewbej-size5-shadow3, .sewbej-bg1-size5-shadow3, .sewbej-bg2-size5-shadow3 {font-size: 34px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
+.sewbej-size6-shadow-1, .sewbej-bg1-size6-shadow-1, .sewbej-bg2-size6-shadow-1 {font-size: 37px; text-shadow: rgba(0, 0, 0, .8) 0 0 3px 0;}
+.sewbej-size6-shadow0, .sewbej-bg1-size6-shadow0, .sewbej-bg2-size6-shadow0  {font-size: 37px; text-shadow: rgba(0, 0, 0, 0) 0 0 0 0;}
+.sewbej-size6-shadow1, .sewbej-bg1-size6-shadow1, .sewbej-bg2-size6-shadow1 {font-size: 37px; text-shadow: rgba(0, 0, 0, .8) 1px 2px 2px 0px;}
+.sewbej-size6-shadow2, .sewbej-bg1-size6-shadow2, .sewbej-bg2-size6-shadow2 {font-size: 37px; text-shadow: rgba(0, 0, 0, .8) 1px 3px 2px 0px;}
+.sewbej-size6-shadow3, .sewbej-bg1-size6-shadow3, .sewbej-bg2-size6-shadow3 {font-size: 37px; text-shadow: rgba(0, 0, 0, .8) 1.4px 4px 2px 0px;}
 
 .sewbej-button1-width1-black, .sewbej-button1-width1-white,
 .sewbej-button2-width1-black, .sewbej-button2-width1-white,
@@ -96,7 +114,7 @@
 .vertical .sewbej-button5-width4-black, .vertical .sewbej-button5-width4-white,
 .vertical .sewbej-button4-width4-black, .vertical .sewbej-button4-width4-white {padding: 14px;}
 
-.sewbej-button3-width1-black, .sewbej-button3-width1-white {width: 30px;}
+.sewbej-button3-width1-black, .sewbej-button3-width1-white {width: 28px;}
 .sewbej-button3-width2-black, .sewbej-button3-width2-white {width: 40px;}
 .sewbej-button3-width3-black, .sewbej-button3-width3-white {width: 50px;}
 .sewbej-button3-width4-black, .sewbej-button3-width4-white {width: 60px;}
@@ -140,36 +158,6 @@
   padding-left: 0;
   padding-right: 0; }
 
-.sewbej-button1-width1-black, .sewbej-button1-width2-black, .sewbej-button1-width3-black, .sewbej-button1-width4-black,
-.sewbej-button2-width1-black, .sewbej-button2-width2-black, .sewbej-button2-width3-black, .sewbej-button2-width4-black {
-  color: rgba(80, 80, 80, 1); }
-.sewbej-button1-width1-white, .sewbej-button1-width2-white, .sewbej-button1-width3-white, .sewbej-button1-width4-white,
-.sewbej-button2-width1-white, .sewbej-button2-width2-white, .sewbej-button2-width3-white, .sewbej-button2-width4-white {
-  color: rgba(143, 143, 143, 1); }
-.sewbej-button1-width1-black:hover, .sewbej-button1-width2-black:hover, .sewbej-button1-width3-black:hover, .sewbej-button1-width4-black:hover,
-.sewbej-button2-width1-black:hover, .sewbej-button2-width2-black:hover, .sewbej-button2-width3-black:hover, .sewbej-button2-width4-black:hover {
-  color: rgba(50, 50, 50, 1); }
-.sewbej-button1-width1-white:hover, .sewbej-button1-width2-white:hover, .sewbej-button1-width3-white:hover, .sewbej-button1-width4-white:hover,
-.sewbej-button2-width1-white:hover, .sewbej-button2-width2-white:hover, .sewbej-button2-width3-white:hover, .sewbej-button2-width4-white:hover {
-  color: rgba(205, 205, 205, 1); }
-.sewbej-button1-width1-black:selected, .sewbej-button1-width1-black:selected:hover,
-.sewbej-button1-width2-black:selected, .sewbej-button1-width2-black:selected:hover,
-.sewbej-button1-width3-black:selected, .sewbej-button1-width3-black:selected:hover,
-.sewbej-button1-width4-black:selected, .sewbej-button1-width4-black:selected:hover,
-.sewbej-button2-width1-black:selected, .sewbej-button2-width1-black:selected:hover,
-.sewbej-button2-width2-black:selected, .sewbej-button2-width2-black:selected:hover,
-.sewbej-button2-width3-black:selected, .sewbej-button2-width3-black:selected:hover,
-.sewbej-button2-width4-black:selected, .sewbej-button2-width4-black:selected:hover {
-  color: rgba(15, 15, 15, 1); }
-.sewbej-button1-width1-white:selected, .sewbej-button1-width1-white:selected:hover,
-.sewbej-button1-width2-white:selected, .sewbej-button1-width2-white:selected:hover,
-.sewbej-button1-width3-white:selected, .sewbej-button1-width3-white:selected:hover,
-.sewbej-button1-width4-white:selected, .sewbej-button1-width4-white:selected:hover,
-.sewbej-button2-width1-white:selected, .sewbej-button2-width1-white:selected:hover,
-.sewbej-button2-width2-white:selected, .sewbej-button2-width2-white:selected:hover,
-.sewbej-button2-width3-white:selected, .sewbej-button2-width3-white:selected:hover,
-.sewbej-button2-width4-white:selected, .sewbej-button2-width4-white:selected:hover {
-  color: rgba(255, 255, 255, 1); }
 .sewbej-button3-width1-black, .sewbej-button3-width2-black, .sewbej-button3-width3-black, .sewbej-button3-width4-black,
 .sewbej-button5-width1-black, .sewbej-button5-width2-black, .sewbej-button5-width3-black, .sewbej-button5-width4-black,
 .sewbej-button4-width1-black, .sewbej-button4-width2-black, .sewbej-button4-width3-black, .sewbej-button4-width4-black {
